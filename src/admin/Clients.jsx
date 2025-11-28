@@ -43,7 +43,7 @@ export default function Clients() {
 
   const loadClients = async () => {
     try {
-      const res = await API.get("/auth/clients");
+      const res = await API.get("/api/auth/clients");
       setClients(res.data);
     } catch (err) {
       console.log("Error loading clients:", err);
@@ -58,7 +58,7 @@ export default function Clients() {
     }
 
     try {
-      await API.post("/auth/create-client", { name, email, password });
+      await API.post("/api/auth/create-client", { name, email, password });
       // showToast("Client created successfully", "success");
       alert("Client created successfully");
       setName("");
@@ -84,7 +84,7 @@ export default function Clients() {
 
   const saveEdit = async (id) => {
     try {
-      await API.put(`/auth/client/${id}`, {
+      await API.put(`/api/auth/client/${id}`, {
         name: editName,
         email: editEmail,
       });
@@ -99,7 +99,7 @@ export default function Clients() {
   const deleteClient = async (id) => {
     if (!window.confirm("Are you sure?")) return;
     try {
-      await API.delete(`/auth/client/${id}`);
+      await API.delete(`/api/auth/client/${id}`);
       alert("Client deleted");
       loadClients();
     } catch (err) {
@@ -111,7 +111,7 @@ export default function Clients() {
     if (!newPassword) return alert("Enter new password");
 
     try {
-      await API.post(`/auth/client/reset-password/${id}`, { newPassword });
+      await API.post(`/api/auth/client/reset-password/${id}`, { newPassword });
       alert("Password reset successfully!");
       setResetPwdId(null);
       setNewPassword("");
@@ -122,7 +122,7 @@ export default function Clients() {
 
   const toggleActive = async (client) => {
     try {
-      await API.post(`/auth/client/active/${client._id}`, {
+      await API.post(`/api/auth/client/active/${client._id}`, {
         active: !client.active,
       });
       loadClients();

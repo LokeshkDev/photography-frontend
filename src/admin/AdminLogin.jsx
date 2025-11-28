@@ -23,7 +23,7 @@ export default function AdminLogin() {
     setError("");
 
     try {
-      const res = await API.post("/auth/login", { username, password });
+      const res = await API.post("/api/auth/login", { username, password });
 
       console.log("LOGIN RESPONSE:", res.data);
 

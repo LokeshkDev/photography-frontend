@@ -11,7 +11,7 @@ export default function ViewSelections() {
 
   const fetchEvents = async () => {
     try {
-      const res = await API.get("/events");
+      const res = await API.get("/api/events");
       setEvents(res.data?.events || []);
     } catch (err) {
       // console.error("fetchEvents:", err);
@@ -24,14 +24,14 @@ export default function ViewSelections() {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await API.get(`/selections/event/${eventId}`, {
+      const res = await API.get(`/api/selections/event/${eventId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
       const selData = Array.isArray(res.data) ? res.data : [];
       setSelections(selData);
 
-      const p = await API.get(`/photos/event/${eventId}`);
+      const p = await API.get(`/api/photos/event/${eventId}`);
       const normalized = (p.data || []).map((pic) => ({
         url: pic.url,
         key: pic.key || pic.s3Key || pic._id?.toString(),

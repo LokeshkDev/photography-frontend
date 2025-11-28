@@ -57,7 +57,7 @@ export default function ClientGallery() {
 
   const loadEventLimit = async () => {
     try {
-      const res = await API.get(`/events/${eventId}`);
+      const res = await API.get(`/api/events/${eventId}`);
       const value = Number(res.data?.selectionLimit);
       setLimit(value === 0 ? null : value);
     } catch (err) {
@@ -67,14 +67,14 @@ export default function ClientGallery() {
 
   const loadPhotosAndSelection = async () => {
     try {
-      const res = await API.get(`/photos/event/${eventId}`);
+      const res = await API.get(`/api/photos/event/${eventId}`);
       const normalized = res.data.map((p) => ({
         url: p.url,
         key: p.key || p.s3Key || p._id.toString(),
       }));
       setPhotos(normalized);
 
-      const selRes = await API.get(`/selections/client/${eventId}`, {
+      const selRes = await API.get(`/api/selections/client/${eventId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -120,7 +120,7 @@ export default function ClientGallery() {
 
   const saveSelection = async () => {
     await API.post(
-      "/selections",
+      "/api/selections",
       { eventId, selections: selected },
       { headers: { Authorization: `Bearer ${token}` } }
     );

@@ -29,13 +29,13 @@ export default function ClientSubmit() {
   }, []);
 
   const loadEventLimit = async () => {
-    const res = await API.get(`/events/${eventId}`);
+    const res = await API.get(`/api/events/${eventId}`);
     const limitValue = res.data?.selectionLimit;
     setLimit(limitValue === 0 ? null : limitValue);
   };
 
   const loadPhotos = async () => {
-    const res = await API.get(`/photos/event/${eventId}`);
+    const res = await API.get(`/api/photos/event/${eventId}`);
 
     const normalized = res.data.map((p) => ({
       url: p.url,
@@ -47,7 +47,7 @@ export default function ClientSubmit() {
   };
 
   const loadExistingSelection = async (normalizedPhotos) => {
-    const res = await API.get(`/selections/client/${eventId}`, {
+    const res = await API.get(`/api/selections/client/${eventId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -76,7 +76,7 @@ export default function ClientSubmit() {
   const submit = async () => {
     setSubmitting(true);
     await API.post(
-      "/selections",
+      "/api/selections",
       { eventId, selections: selected },
       { headers: { Authorization: `Bearer ${token}` } }
     );

@@ -22,7 +22,7 @@ export default function ClientDashboard() {
   const loadEvents = async () => {
     try {
       const token = localStorage.getItem("clientToken");
-      const res = await API.get(`/events/client/${clientId}`, {
+      const res = await API.get(`/api/events/client/${clientId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

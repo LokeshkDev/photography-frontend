@@ -31,7 +31,7 @@ export default function UploadPhotos() {
   useEffect(() => {
     async function fetchEvents() {
       try {
-        const res = await API.get("/events");
+        const res = await API.get("/api/events");
         const eventList = Array.isArray(res.data?.events) ? res.data.events : [];
         setEvents(eventList);
       } catch (err) {
@@ -48,7 +48,7 @@ export default function UploadPhotos() {
         return;
       }
       try {
-        const res = await API.get(`/photos/event/${selectedEvent}`);
+        const res = await API.get(`/api/photos/event/${selectedEvent}`);
         setUploadedPhotos(Array.isArray(res.data) ? res.data : []);
       } catch (err) {
         setUploadedPhotos([]);
@@ -76,7 +76,7 @@ export default function UploadPhotos() {
 
     try {
       for (let file of selectedFiles) {
-        const signedRes = await API.post("/upload/presign", {
+        const signedRes = await API.post("/api/upload/presign", {
           fileName: file.name,
           fileType: file.type,
           folderPath,
@@ -88,7 +88,7 @@ export default function UploadPhotos() {
           headers: { "Content-Type": file.type },
         });
 
-        await API.post("/upload/confirm", {
+        await API.post("/api/upload/confirm", {
           eventId: selectedEvent,
           key: signedRes.data.key,
         });
@@ -98,7 +98,7 @@ export default function UploadPhotos() {
       // showToast("Upload completed!", "success");
       alert("Upload completed!")
 
-      const updatedRes = await API.get(`/photos/event/${selectedEvent}`);
+      const updatedRes = await API.get(`/api/photos/event/${selectedEvent}`);
       setUploadedPhotos(Array.isArray(updatedRes.data) ? updatedRes.data : []);
 
     } catch (err) {
@@ -112,9 +112,9 @@ export default function UploadPhotos() {
     if (!window.confirm("Are you sure you want to delete this photo?")) return;
 
     try {
-      await API.post("/photos/delete", { eventId: selectedEvent, key });
+      await API.post("/api/photos/delete", { eventId: selectedEvent, key });
 
-      const updatedRes = await API.get(`/photos/event/${selectedEvent}`);
+      const updatedRes = await API.get(`/api/photos/event/${selectedEvent}`);
       setUploadedPhotos(Array.isArray(updatedRes.data) ? updatedRes.data : []);
 
     } catch (err) {

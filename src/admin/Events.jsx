@@ -33,13 +33,13 @@ export default function Events() {
   }, []);
 
   const fetchClients = async () => {
-    const res = await API.get("/auth/clients");
+    const res = await API.get("/api/auth/clients");
     setClients(Array.isArray(res.data) ? res.data : []);
   };
 
   const fetchEvents = async () => {
     try {
-      const res = await API.get("/events");
+      const res = await API.get("/api/events");
       const eventList = Array.isArray(res.data?.events) ? res.data.events : [];
       setEvents(eventList);
       setFilteredEvents(eventList);
@@ -64,7 +64,7 @@ export default function Events() {
     if (!title) return alert("Title required");
     if (!clientId) return alert("Client required");
 
-    await API.post("/events", {
+    await API.post("/api/events", {
       title,
       description,
       clientId,
@@ -84,7 +84,7 @@ export default function Events() {
   };
 
   const saveEdit = async () => {
-    await API.put(`/events/${editingEvent}`, {
+    await API.put(`/api/events/${editingEvent}`, {
       title,
       description,
       clientId,
@@ -95,19 +95,19 @@ export default function Events() {
   };
 
   const duplicateEvent = async (eventId) => {
-    await API.post(`/events/duplicate/${eventId}`);
+    await API.post(`/api/events/duplicate/${eventId}`);
     fetchEvents();
   };
 
   const archiveEvent = async (eventId) => {
     if (!window.confirm("Archive this event?")) return;
-    await API.post(`/events/archive/${eventId}`);
+    await API.post(`/api/events/archive/${eventId}`);
     fetchEvents();
   };
 
   const deleteEvent = async (eventId) => {
     if (!window.confirm("Delete permanently?")) return;
-    await API.delete(`/events/${eventId}`);
+    await API.delete(`/api/events/${eventId}`);
     fetchEvents();
   };
 

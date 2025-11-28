@@ -22,7 +22,7 @@ export default function ClientLogin() {
     e.preventDefault();
 
     try {
-      const res = await API.post("/auth/login", { email, password });
+      const res = await API.post("/api/auth/login", { email, password });
 
       if (res.data.user.role !== "client") {
         return setErr("This login is only for clients");

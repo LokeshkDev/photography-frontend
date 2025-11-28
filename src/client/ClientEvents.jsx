@@ -19,7 +19,7 @@ export default function ClientEvents() {
       const clientId = localStorage.getItem("clientId");
       if (!clientId) return;
 
-      const res = await API.get(`/events/client/${clientId}`, {
+      const res = await API.get(`/api/events/client/${clientId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("clientToken")}`,
         },
