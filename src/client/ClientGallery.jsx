@@ -60,6 +60,7 @@ export default function ClientGallery() {
       const res = await API.get(`/api/events/${eventId}`);
       const value = Number(res.data?.selectionLimit);
       setLimit(value === 0 ? null : value);
+      // console.log("Event limit received:", res.data?.selectionLimit);
     } catch (err) {
       // console.error("Error loading limit:", err);
     }
