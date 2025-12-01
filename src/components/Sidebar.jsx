@@ -66,9 +66,9 @@ export default function Sidebar() {
 
   const menuItems = [
     { text: "Dashboard", icon: <HomeIcon />, path: "/admin/dashboard" },
+    { text: "Clients", icon: <PeopleIcon />, path: "/admin/clients" },
     { text: "Events", icon: <EventIcon />, path: "/admin/events" },
     { text: "Upload Photos", icon: <UploadIcon />, path: "/admin/upload" },
-    { text: "Clients", icon: <PeopleIcon />, path: "/admin/clients" },
     { text: "Selections", icon: <CheckCircleIcon />, path: "/admin/selections" },
   ];
 

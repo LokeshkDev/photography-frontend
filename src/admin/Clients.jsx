@@ -177,7 +177,12 @@ export default function Clients() {
             </Grid>
 
             <Grid item xs={12}>
-              <Button fullWidth type="submit" variant="contained">
+              <Button fullWidth type="submit" variant="contained"
+                sx={{
+                  height: "56px",
+                  width: 180,  
+                  fontWeight: "bold"
+                }}>
                 Create Client
               </Button>
             </Grid>

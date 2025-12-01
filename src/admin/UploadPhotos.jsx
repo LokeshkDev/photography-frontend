@@ -138,6 +138,7 @@ export default function UploadPhotos() {
                 select
                 fullWidth
                 label="Select Event"
+                sx={{ width: 250 }} 
                 value={selectedEvent}
                 onChange={(e) => setSelectedEvent(e.target.value)}
               >

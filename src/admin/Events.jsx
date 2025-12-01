@@ -12,6 +12,7 @@ import {
   Button,
   MenuItem,
   Divider,
+  Paper,
 } from "@mui/material";
 
 export default function Events() {
@@ -120,144 +121,147 @@ export default function Events() {
   };
 
   return (
-    <Box>
-
-      <Typography variant="h4" sx={{ mb: 3, fontWeight: "bold" }}>
+    <Box sx={{ p: 2 }}>
+      <Typography
+        variant="h4"
+        sx={{ mb: 3, fontWeight: "bold", textTransform: "uppercase" }}
+      >
         {editingEvent ? "Edit Event" : "Create Event"}
       </Typography>
 
-      {/* FORM */}
-      <Card sx={{ mb: 4 }}>
-        <CardContent>
-          <Grid container spacing={2} component="form" onSubmit={createEvent}>
-            
-            {/* ROW 1 */}
-            <Grid item xs={12} md={6}>
-              <TextField
-                fullWidth
-                label="Event Title"
-                value={title}
-                onChange={e => setTitle(e.target.value)}
-              />
-            </Grid>
+      {/* FORM WRAPPER */}
+      <Paper elevation={3} sx={{ p: 3, mb: 4, borderRadius: 3 }}>
 
-            <Grid item xs={12} md={6}>
-              <TextField
-                fullWidth
-                select
-                label="Assign Client"
-                value={clientId}
-                onChange={(e) => setClientId(e.target.value)}
-              >
-                <MenuItem value="">-- Select Client --</MenuItem>
-                {clients.map((c) => (
-                  <MenuItem key={c._id} value={c._id}>
-                    {c.name}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Grid>
+        {/* FORM */}
+<Card sx={{ mb: 4, p: 2 }}>
+  <Grid container spacing={2} alignItems="center">
 
-            {/* ROW 2 */}
-            <Grid item xs={12} md={6}>
-              <TextField
-                fullWidth
-                multiline
-                minRows={3}
-                label="Description"
-                value={description}
-                onChange={e => setDescription(e.target.value)}
-              />
-            </Grid>
+    {/* Event Title */}
+    <Grid item xs={12} md="auto">
+      <TextField
+        label="Event Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        sx={{ width: 280 }}   // FIXED WIDTH
+      />
+    </Grid>
 
-            <Grid item xs={12} md={3}>
-              <TextField
-                fullWidth
-                type="number"
-                label="Selection Limit"
-                value={selectionLimit}
-                onChange={e => setSelectionLimit(e.target.value)}
-              />
-            </Grid>
+    {/* Assign Client */}
+    <Grid item xs={12} md="auto">
+      <TextField
+        select
+        label="Assign Client"
+        value={clientId}
+        onChange={(e) => setClientId(e.target.value)}
+        sx={{ width: 250 }}   // FIXED WIDTH (NO SHRINK)
+      >
+        <MenuItem value="">-- Select Client --</MenuItem>
+        {clients.map((c) => (
+          <MenuItem key={c._id} value={c._id}>
+            {c.name}
+          </MenuItem>
+        ))}
+      </TextField>
+    </Grid>
 
-            <Grid item xs={12} md={3}>
-              {editingEvent ? (
-                <Button
-                  variant="contained"
-                  fullWidth
-                  onClick={saveEdit}
-                  sx={{ height: "100%" }}
-                >
-                  Save Changes
-                </Button>
-              ) : (
-                <Button
-                  variant="contained"
-                  fullWidth
-                  type="submit"
-                  sx={{ height: "100%" }}
-                >
-                  Create Event
-                </Button>
-              )}
-            </Grid>
+    {/* Selection Limit */}
+    <Grid item xs={12} md="auto">
+      <TextField
+        type="number"
+        label="Selection Limit"
+        value={selectionLimit}
+        onChange={(e) => setSelectionLimit(e.target.value)}
+        sx={{ width: 180 }}  // FIXED WIDTH
+      />
+    </Grid>
 
-          </Grid>
-        </CardContent>
-      </Card>
+    {/* Description - full row */}
+    <Grid item xs={12}>
+      <TextField
+        fullWidth
+        multiline
+        minRows={3}
+        label="Description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+      />
+    </Grid>
 
-      {/* FILTER SEARCH */}
+    {/* Create / Save Button */}
+    <Grid item xs={12} md="auto">
+      <Button
+        variant="contained"
+        onClick={editingEvent ? saveEdit : createEvent}
+        sx={{
+          height: "56px",
+          width: 180,  
+          fontWeight: "bold"
+        }}
+      >
+        {editingEvent ? "Save Changes" : "Create Event"}
+      </Button>
+    </Grid>
+
+      </Grid>
+    </Card>
+      </Paper>
+
+      {/* SEARCH */}
       <TextField
         fullWidth
         label="Search by event title or client name..."
-        sx={{ mb: 3 }}
+        sx={{
+          mb: 4,
+          background: "#fff",
+          borderRadius: 2,
+        }}
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
 
       {/* EVENTS LIST */}
-      <Grid container spacing={2}>
+      <Grid container spacing={3}>
         {filteredEvents.length === 0 && (
-          <Typography color="text.secondary">No events found</Typography>
+          <Typography sx={{ ml: 2 }} color="text.secondary">
+            No events found
+          </Typography>
         )}
 
         {filteredEvents.map((ev) => (
-          <Grid item xs={12} md={4} key={ev._id}>
-            <Card>
+          <Grid item xs={12} sm={6} md={4} key={ev._id}>
+            <Card sx={{ borderRadius: 3, p: 1 }}>
               <CardContent>
-                <Typography variant="h6">{ev.title}</Typography>
-                <Typography variant="body2" sx={{ mb: 1 }}>
+                <Typography variant="h6" sx={{ mb: 1, fontWeight: 600 }}>
+                  {ev.title}
+                </Typography>
+
+                <Typography variant="body2" sx={{ mb: 1.5 }}>
                   {ev.description}
                 </Typography>
 
-                <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 2 }}>
+                <Typography
+                  variant="subtitle2"
+                  color="text.secondary"
+                  sx={{ mb: 2 }}
+                >
                   Client: {ev.clientName || ev.client?.name || "Not Assigned"}
                 </Typography>
 
                 <Divider sx={{ mb: 2 }} />
 
                 <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
-                  <Button
-                    variant="outlined"
-                    size="small"
-                    onClick={() => startEditing(ev)}
-                  >
+                  <Button variant="outlined" size="small" onClick={() => startEditing(ev)}>
                     Edit
                   </Button>
-                  <Button
-                    variant="outlined"
-                    size="small"
-                    onClick={() => duplicateEvent(ev._id)}
-                  >
+
+                  <Button variant="outlined" size="small" onClick={() => duplicateEvent(ev._id)}>
                     Duplicate
                   </Button>
-                  <Button
-                    variant="outlined"
-                    size="small"
-                    onClick={() => archiveEvent(ev._id)}
-                  >
+
+                  <Button variant="outlined" size="small" onClick={() => archiveEvent(ev._id)}>
                     Archive
                   </Button>
+
                   <Button
                     variant="contained"
                     color="error"
@@ -267,7 +271,6 @@ export default function Events() {
                     Delete
                   </Button>
                 </Box>
-
               </CardContent>
             </Card>
           </Grid>
