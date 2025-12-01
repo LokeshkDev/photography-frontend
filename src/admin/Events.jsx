@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import API from "../utils/api";
-
+import usePageTitle from "../hooks/usePageTitle";
 /* MUI */
 import {
   Box,
@@ -27,7 +27,7 @@ export default function Events() {
   const [editingEvent, setEditingEvent] = useState(null);
 
   const [searchTerm, setSearchTerm] = useState("");
-
+ usePageTitle("Event Management");
   useEffect(() => {
     fetchClients();
     fetchEvents();

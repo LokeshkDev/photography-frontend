@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import API from "../utils/api";
-
+import usePageTitle from "../hooks/usePageTitle";
 export default function ViewSelections() {
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState("");
   const [selections, setSelections] = useState([]);
   const [photos, setPhotos] = useState([]);
   const [previewUrl, setPreviewUrl] = useState(null);
-
+ usePageTitle("Upload Event Photos");
   useEffect(() => {
     fetchEvents();
   }, []);

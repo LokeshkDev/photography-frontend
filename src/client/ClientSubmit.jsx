@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import API from "../utils/api";
 import { useParams, useNavigate } from "react-router-dom";
-
+import usePageTitle from "../hooks/usePageTitle";
 /* MUI */
 import {
   Box,
@@ -22,7 +22,7 @@ export default function ClientSubmit() {
   const [limit, setLimit] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
-
+  usePageTitle("Client Events Submission");
   useEffect(() => {
     loadEventLimit();
     loadPhotos();

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import API from "../utils/api";
 import { useParams, useNavigate } from "react-router-dom";
-
+import usePageTitle from "../hooks/usePageTitle";
 /* MUI */
 import {
   Box,
@@ -15,6 +15,7 @@ import {
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export default function ClientGallery() {
+  usePageTitle("Client Events Gallery");
   const { eventId } = useParams();
   const navigate = useNavigate();
   const token = localStorage.getItem("clientToken");

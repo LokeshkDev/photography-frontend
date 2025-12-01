@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../utils/api";
-
+import usePageTitle from "../hooks/usePageTitle";
 /* MUI */
 import {
   Box,
@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 
 export default function ClientDashboard() {
+  usePageTitle("Client Dashboard");
   const navigate = useNavigate();
 
   const clientId = localStorage.getItem("clientId");

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../utils/api";
-
+import usePageTitle from "../hooks/usePageTitle";
 /* MUI */
 import {
   Box,
@@ -16,9 +16,10 @@ import {
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export default function ClientEvents() {
+  usePageTitle("Client Events");
   const [events, setEvents] = useState([]);
   const navigate = useNavigate();
-
+usePageTitle
   useEffect(() => {
     async function fetchEvents() {
       const clientId = localStorage.getItem("clientId");

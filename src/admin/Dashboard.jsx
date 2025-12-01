@@ -1,8 +1,11 @@
 import { Box, Grid, Card, CardContent, Typography } from "@mui/material";
 import EventIcon from "@mui/icons-material/Event";
 import GroupIcon from "@mui/icons-material/Group";
+import usePageTitle from "../hooks/usePageTitle";
 
 export default function Dashboard() {
+
+  usePageTitle("Dashboard");
   return (
     <Box>
       <Typography

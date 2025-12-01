@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../utils/api";
+import usePageTitle from "../hooks/usePageTitle";
 
 /* MUI */
 import {
@@ -17,9 +18,7 @@ export default function AdminLogin() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  useEffect(() => {
-    document.title = "Albumo Captura | Admin Login";
-  }, []);
+  usePageTitle("Admin Login");
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");

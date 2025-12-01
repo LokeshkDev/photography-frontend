@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import API from "../utils/api";
+import usePageTitle from "../hooks/usePageTitle";
 
 /* MUI */
 import {
@@ -36,7 +37,7 @@ export default function Clients() {
 
   const [resetPwdId, setResetPwdId] = useState(null);
   const [newPassword, setNewPassword] = useState("");
-
+  usePageTitle("Client Management");
   useEffect(() => {
     loadClients();
   }, []);

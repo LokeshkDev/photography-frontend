@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import API from "../utils/api";
-
+import usePageTitle from "../hooks/usePageTitle";
 /* MUI */
 import {
   Box,
@@ -27,7 +27,7 @@ export default function UploadPhotos() {
   const [loading, setLoading] = useState(false);
 
   const [previewIndex, setPreviewIndex] = useState(null);
-
+  usePageTitle("Upload Event Photos");
   useEffect(() => {
     async function fetchEvents() {
       try {
